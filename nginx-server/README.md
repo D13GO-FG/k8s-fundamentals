@@ -55,3 +55,15 @@ When running on Minikube, especially on macOS or Windows, you might need to take
     minikube service nginx-service
     ```
     This command will open the service in your default browser or provide a URL you can use.
+
+## Evidence
+
+Here is some evidence of the Nginx server running:
+
+### Nginx on the browser
+
+![Nginx Browser](./evidence/nginx_browser.png)
+
+### Nginx service running
+
+![Nginx Service](./evidence/running_service.png)
