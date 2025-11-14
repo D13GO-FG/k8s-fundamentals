@@ -6,17 +6,22 @@ This directory contains the Kubernetes manifest files for deploying an Nginx ser
 
 To deploy the Nginx server on your Kubernetes cluster, follow these steps:
 
-1.  **Apply the Deployment:**
+1.  **Apply the ConfigMap:**
+    ```bash
+    kubectl apply -f nginx-server/nginx-configmap.yaml
+    ```
+
+2.  **Apply the Deployment:**
     ```bash
     kubectl apply -f nginx-server/nginx-deployment.yaml
     ```
 
-2.  **Apply the Service:**
+3.  **Apply the Service:**
     ```bash
     kubectl apply -f nginx-server/nginx-service.yaml
     ```
 
-3.  **Verify the Deployment:**
+4.  **Verify the Deployment:**
     You can check the status of your deployment and pods using:
     ```bash
     kubectl get deployments
@@ -67,3 +72,11 @@ Here is some evidence of the Nginx server running:
 ### Nginx service running
 
 ![Nginx Service](./evidence/running_service.png)
+
+### Nginx with custom content from ConfigMap
+
+![Nginx Browser Custom](./evidence/nginx_browser_custom.png)
+
+### ConfigMap content
+
+![Using ConfigMap](./evidence/using_configmap.png)
