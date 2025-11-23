@@ -33,7 +33,7 @@ To deploy the Nginx server on your Kubernetes cluster, follow these steps:
     kubectl get services
     ```
 
-4. **Access Nginx:**
+5. **Access Nginx:**
     Depending on your Kubernetes environment and service type, you can access the Nginx server. If using `NodePort` or `LoadBalancer`, you can find the external IP or port using `kubectl get services`.
 
 ## Accessing with NodePort on Minikube
