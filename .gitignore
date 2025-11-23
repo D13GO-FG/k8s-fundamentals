@@ -180,3 +180,5 @@ mlartifacts/
 mlruns/
 .metrics/
 .env*
+
+.vscode

@@ -6,38 +6,43 @@ This directory contains the Kubernetes manifest files for deploying an Nginx ser
 
 To deploy the Nginx server on your Kubernetes cluster, follow these steps:
 
-1.  **Apply the ConfigMap:**
+1. **Apply the ConfigMap:**
+
     ```bash
     kubectl apply -f nginx-server/nginx-configmap.yaml
     ```
 
-2.  **Apply the Deployment:**
+2. **Apply the Deployment:**
+
     ```bash
     kubectl apply -f nginx-server/nginx-deployment.yaml
     ```
 
-3.  **Apply the Service:**
+3. **Apply the Service:**
+
     ```bash
     kubectl apply -f nginx-server/nginx-service.yaml
     ```
 
-4.  **Verify the Deployment:**
+4. **Verify the Deployment:**
     You can check the status of your deployment and pods using:
+
     ```bash
     kubectl get deployments
     kubectl get pods
     kubectl get services
     ```
 
-4.  **Access Nginx:**
+4. **Access Nginx:**
     Depending on your Kubernetes environment and service type, you can access the Nginx server. If using `NodePort` or `LoadBalancer`, you can find the external IP or port using `kubectl get services`.
 
 ## Accessing with NodePort on Minikube
 
 When running on Minikube, especially on macOS or Windows, you might need to take extra steps to access a `NodePort` service.
 
-1.  **Set Service Type to NodePort:**
+1. **Set Service Type to NodePort:**
     Ensure your service YAML file (e.g., `nginx-server/nginx-service.yaml`) has the `spec.type` set to `NodePort`:
+
     ```yaml
     spec:
       type: NodePort
@@ -47,18 +52,21 @@ When running on Minikube, especially on macOS or Windows, you might need to take
           # The nodePort field is optional, Kubernetes will assign one if not specified.
     ```
 
-2.  **Get Minikube IP and Service Port:**
+2. **Get Minikube IP and Service Port:**
     You can get the IP of your Minikube cluster and the assigned `NodePort` for your service:
+
     ```bash
     minikube ip
     kubectl get services
     ```
 
-3.  **Create a Tunnel (if direct access fails):**
+3. **Create a Tunnel (if direct access fails):**
     On some systems (like macOS with the Docker driver), you may not be able to directly access `http://<minikube-ip>:<node-port>`. In this case, use the `minikube service` command to create a tunnel:
+
     ```bash
     minikube service nginx-service
     ```
+
     This command will open the service in your default browser or provide a URL you can use.
 
 ## Evidence
@@ -67,16 +75,16 @@ Here is some evidence of the Nginx server running:
 
 ### Nginx on the browser
 
-![Nginx Browser](./evidence/nginx_browser.png)
+![Nginx Browser](./evidence/kickoff/nginx_browser.png)
 
 ### Nginx service running
 
-![Nginx Service](./evidence/running_service.png)
+![Nginx Service](./evidence/kickoff/running_service.png)
 
 ### Nginx with custom content from ConfigMap
 
-![Nginx Browser Custom](./evidence/nginx_browser_custom.png)
+![Nginx Browser Custom](./evidence/kickoff/nginx_browser_custom.png)
 
 ### ConfigMap content
 
-![Using ConfigMap](./evidence/using_configmap.png)
+![Using ConfigMap](./evidence/kickoff/using_configmap.png)
