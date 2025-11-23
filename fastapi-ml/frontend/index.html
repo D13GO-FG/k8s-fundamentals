@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Flower Prediction</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Iris Flower Predictor</h1>
+        <p>Enter the flower measurements below to predict its species.</p>
+        
+        <div class="input-group">
+            <label for="apiUrl">API URL (from Minikube):</label>
+            <input type="text" id="apiUrl" placeholder="http://127.0.0.1:xxxxx" required>
+        </div>
+
+        <form id="predictionForm">
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="sepalLength">Sepal Length</label>
+                    <input type="number" id="sepalLength" step="0.1" value="5.1" required>
+                </div>
+                <div class="input-group">
+                    <label for="sepalWidth">Sepal Width</label>
+                    <input type="number" id="sepalWidth" step="0.1" value="3.5" required>
+                </div>
+                <div class="input-group">
+                    <label for="petalLength">Petal Length</label>
+                    <input type="number" id="petalLength" step="0.1" value="1.4" required>
+                </div>
+                <div class="input-group">
+                    <label for="petalWidth">Petal Width</label>
+                    <input type="number" id="petalWidth" step="0.1" value="0.2" required>
+                </div>
+            </div>
+            <button type="submit">Predict Species</button>
+        </form>
+
+        <div id="result" class="result-card hidden">
+            <h2>Prediction Result</h2>
+            <div class="flower-icon" id="flowerIcon">🌸</div>
+            <p class="species-name" id="speciesName"></p>
+            <p class="probability" id="probability"></p>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
