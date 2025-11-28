@@ -127,3 +127,23 @@ To clean up the resources created in this task, run the following commands:
   kubectl delete -f ../nginx-service.yaml
   minikube node delete minikube-m02
   ```
+
+## 📸 Evidence
+
+Here are the screenshots capturing the process of this task:
+
+### 1. Creating Nodes
+
+![Creating Nodes](../../evidence/task_2/1_creating_nodes.png)
+
+### 2. Node Pool and Taint Setup
+
+![Node Pool and Taint](../../evidence/task_2/2_node_pool_and_taint.png)
+
+### 3. Deployment in Node Pool
+
+![Deployment in Node Pool](../../evidence/task_2/3_deploy_in_node_pool.png)
+
+### 4. Running Service on Custom Node
+
+![Running Service](../../evidence/task_2/4_running_service_node_m2.png)
