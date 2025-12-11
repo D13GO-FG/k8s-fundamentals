@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: s3-sa
+  namespace: kserve-test
+secrets:
+  - name: s3-secret

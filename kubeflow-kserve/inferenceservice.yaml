@@ -1,0 +1,18 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: sklearn-iris
+spec:
+  predictor:
+    serviceAccountName: s3-sa
+    model:
+      modelFormat:
+        name: sklearn
+      storageUri: "s3://kubeflow-bucket-test/models/iris"
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "512Mi"
+        limits:
+          cpu: "1"
+          memory: "1Gi"
