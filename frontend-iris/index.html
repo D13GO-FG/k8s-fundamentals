@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Predictor (KServe)</title>
+    <!-- Use Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1>Iris Predictor</h1>
+            <p>Classify Iris flowers using your KServe inference endpoint.</p>
+        </header>
+
+        <!-- Main Input Form -->
+        <main class="main-content">
+            <form id="predictionForm" class="prediction-form">
+
+                <div class="endpoint-section">
+                    <label for="apiUrl">Backend Endpoint URL</label>
+                    <input type="url" id="apiUrl" placeholder="http://localhost:8011/v1/models/sklearn-iris:predict"
+                        required>
+                    <small>Enter the local proxy or full KServe V1/V2 predict URL.</small>
+                </div>
+
+                <div class="measurements-grid">
+                    <div class="input-group">
+                        <label for="sepalLength">Sepal Length (cm)</label>
+                        <input type="number" id="sepalLength" step="0.1" value="5.1" min="0" max="10" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="sepalWidth">Sepal Width (cm)</label>
+                        <input type="number" id="sepalWidth" step="0.1" value="3.5" min="0" max="10" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="petalLength">Petal Length (cm)</label>
+                        <input type="number" id="petalLength" step="0.1" value="1.4" min="0" max="10" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="petalWidth">Petal Width (cm)</label>
+                        <input type="number" id="petalWidth" step="0.1" value="0.2" min="0" max="10" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="submitBtn" class="submit-btn">
+                    <span>Predict Species</span>
+                    <div class="spinner hidden" id="loadingSpinner"></div>
+                </button>
+            </form>
+
+            <!-- Result Card -->
+            <div id="resultCard" class="result-card hidden">
+                <div class="result-header">
+                    <h2>Prediction Result</h2>
+                </div>
+                <div class="result-body">
+                    <div class="flower-icon" id="flowerIcon">🌸</div>
+                    <h3 class="species-name" id="speciesName">Iris Setosa</h3>
+                    <p class="confidence" id="confidenceData">Predicted Class Index: <span id="classIndex"></span></p>
+                </div>
+            </div>
+
+            <!-- Error Banner -->
+            <div id="errorBanner" class="error-banner hidden">
+                <p id="errorMessage">An error occurred while connecting to the backend.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Application Logic -->
+    <script src="app.js"></script>
+</body>
+
+</html>
