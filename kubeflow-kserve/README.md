@@ -105,3 +105,29 @@ kubectl apply -n kserve-test -f - <<EOF
         storageUri: "gs://kfserving-examples/models/sklearn/1.0/model"
 EOF
 ```
+## AWS EKS Hybrid Workflow (New)
+
+For scalable, cloud-based serving using the **AWS Free Tier**, we use a hybrid approach:
+1. **Train Locally**: Use Minikube and Kubeflow to train the model.
+2. **Cloud Storage**: Save the model directly to **AWS S3**.
+3. **Cloud Serving**: Deploy a lightweight **KServe** instance on **AWS EKS** to serve the model from S3.
+
+### Full EKS Guide
+Follow the step-by-step instructions here:
+👉 **[AWS EKS Setup Guide](aws-eks/setup-guide.md)**
+
+### Resource Summary
+- **Training**: Minikube / Kubeflow
+- **Storage**: AWS S3
+- **Serving**: AWS EKS / KServe
+- **Provisioning**: `eksctl` (using `t3.medium` nodes)
+
+---
+
+## Clean Up (Minikube)
+
+To remove local resources:
+```bash
+kubectl delete namespace kserve-test
+minikube stop
+```

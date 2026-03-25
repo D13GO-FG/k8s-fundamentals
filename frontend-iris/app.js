@@ -49,9 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
         resetUI();
         setLoading(true);
 
-        // 1. Get exact backend endpoint
-        // Example: http://localhost:8080/v1/models/iris:predict
-        const apiUrl = document.getElementById('apiUrl').value.trim();
+        // 1. Hardcode exact native backend endpoint
+        const apiUrl = '/v1/models/sklearn-iris:predict';
 
         // 2. Gather Features
         const sepalLength = parseFloat(document.getElementById('sepalLength').value);
@@ -67,24 +66,34 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            // Local Proxy Routing: 
-            // When querying Minikube locally, we hit 127.0.0.1:80, but Istio needs the target `Host:` header.
-            // Since browsers block setting the Host header, we route through `proxy.js` running on :8011
-            const parsedUrl = new URL(apiUrl);
+            // Parse URL to handle both absolute (local testing) and relative (cloud Native) paths
+            let parsedUrl;
+            let targetHost = undefined;
+            
+            // Checking if it's a relative URL (which means we are running natively on the ELB)
+            if (apiUrl.startsWith('/')) {
+                parsedUrl = new URL(apiUrl, window.location.origin);
+            } else {
+                parsedUrl = new URL(apiUrl);
+                targetHost = parsedUrl.hostname;
+                if (targetHost === 'localhost' || targetHost === '127.0.0.1') {
+                    // Local proxy legacy support
+                    targetHost = 'sklearn-iris.kserve-test.example.com';
+                } else {
+                    targetHost = undefined;
+                }
+            }
 
-            // If the user pasted the direct KServe URL, we strip the host to send as a proxy header
-            let targetHost = parsedUrl.hostname;
-            if (targetHost === 'localhost' || targetHost === '127.0.0.1') {
-                // Default Minikube Istio Host
-                targetHost = 'sklearn-iris.kserve-test.example.com';
+            const fetchHeaders = {
+                'Content-Type': 'application/json'
+            };
+            if (targetHost) {
+                fetchHeaders['Target-Host'] = targetHost;
             }
 
             const response = await fetch(apiUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Target-Host': targetHost
-                },
+                headers: fetchHeaders,
                 body: JSON.stringify(payload)
             });
 

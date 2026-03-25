@@ -72,7 +72,7 @@ Command to create a small cluster:
 
 ```bash
 eksctl create cluster \
-  --name nginx-cluster \
+  --name nginx-test \
   --region us-west-2 \
   --version 1.34 \
   --nodegroup-name standard-workers \
@@ -155,7 +155,7 @@ To stop paying for resources, delete the cluster when you are finished testing.
 kubectl delete -f nginx-service-lb.yaml
 
 # Delete the Cluster
-eksctl delete cluster --name nginx-cluster --region us-west-2
+eksctl delete cluster --name nginx-test --region us-west-2
 ```
 
 Wait for confirmation that the cluster is deleted.

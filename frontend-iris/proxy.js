@@ -1,8 +1,8 @@
 const http = require('http');
 
-const PORT = 8011;
-const TARGET_HOST = '127.0.0.1';
-const TARGET_PORT = 80;
+const PORT = process.env.PORT || 8011;
+const TARGET_HOST = process.env.TARGET_HOST || '127.0.0.1';
+const TARGET_PORT = process.env.TARGET_PORT || 80;
 
 const server = http.createServer((req, res) => {
     // Enable CORS for the local browser frontend

@@ -1,0 +1,42 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: sklearn-iris-alb-direct
+  namespace: kserve-test
+spec:
+  gateways:
+  - knative-serving/knative-ingress-gateway
+  hosts:
+  - "*"
+  http:
+  - match:
+    - uri:
+        prefix: "/v1/models/sklearn-iris"
+    corsPolicy:
+      allowOrigins:
+      - regex: ".*"
+      allowMethods:
+      - POST
+      - GET
+      - OPTIONS
+      allowHeaders:
+      - "*"
+    headers:
+      request:
+        set:
+          Host: "sklearn-iris-predictor.kserve-test.svc.cluster.local"
+          KServe-Isvc-Name: "sklearn-iris"
+          KServe-Isvc-Namespace: "kserve-test"
+    route:
+    - destination:
+        host: knative-local-gateway.istio-system.svc.cluster.local
+        port:
+          number: 80
+  - match:
+    - uri:
+        prefix: "/"
+    route:
+    - destination:
+        host: frontend-service.kserve-test.svc.cluster.local
+        port:
+          number: 80
